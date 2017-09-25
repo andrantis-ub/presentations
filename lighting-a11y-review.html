@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>IDEA lighting talk - a11y review</title>
+
+  <meta name="description" content="How to perform an accessibility review">
+  <meta name="author" content="Andres Antista">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/moon.css" id="theme">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+
+  <!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+</head>
+
+<body>
+
+  <div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+      <section>
+        <h1>Accessibility review</h1>
+        <!-- <h3>The HTML Presentation Framework</h3>
+					<p>
+						<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>
+					</p> -->
+      </section>
+      <section>
+        <section>
+          <h2>Start with the keyboard</h2>
+          <p>Aim to have a logical tab order and easily discernable focus styles</p>
+        </section>
+        <section>
+          <h3>Key points</h3>
+          <p class="fragment fade-down">Start by tabbing through your site</p>
+          <p class="fragment fade-down">Interactive (native and custom) controls should aim to be focusable and display a focus indicator</p>
+          <p class="fragment fade-down">Avoid controls with a tabindex > 0</p>
+          <p class="fragment fade-down">Non-interactive content (e.g., headings) should avoid being focusable</p>
+          <p class="fragment fade-down">Direct focus to new content added to a page</p>
+          <p class="fragment fade-down">Beware of completely trapping focus at any point</p>
+          <p class="fragment fade-down">Don’t forget offscreen content</p>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h2>Try it with a screen reader</h2>
+          <p>Check the page for proper labeling and semantics and any obstructions to screen reader navigation</p>
+        </section>
+        <section>
+          <h3>Key points</h3>
+          <p class="fragment fade-down">Check all images for proper alt text</p>
+          <p class="fragment fade-down">Check all controls for a label. Look at aria attributes for custom controls</p>
+          <p class="fragment fade-down">The flow of information should make sense</p>
+          <p class="fragment fade-down">Aim to support a screen reader’s navigation to all content on the page</p>
+          <p class="fragment fade-down">For content that needs to be hidden, make sure that is set to aria-hidden=”true”</p>
+        </section>
+        <section>
+            <h3>Screen readers</h3>
+            <p><a href="https://help.apple.com/voiceover/info/guide/10.12/">VoiceOver</a></p>
+            <p><a href="https://www.nvaccess.org/">NVDA</a></p>
+            <p><a href="http://www.chromevox.com/">ChromeVox</a></p>
+          </section>          
+      </section>
+      <section>
+        <section>
+          <h2>Take advantage of headings and landmarks</h2>
+          <p>Headings and landmark elements give your page semantic structure, and greatly increase the navigating efficiency
+            of assistive technology users</p>
+        </section>
+        <section>
+          <h3>Key points</h3>
+          <p class="fragment fade-down">Make proper use of h1-h6 hierarchy</p>
+          <p class="fragment fade-down">Use landmark elements and roles so users can bypass repetitive content</p>
+          <p class="fragment fade-down">You can also use the ARIA role attribute to explicitly define regions on the page, e.g.,
+            <pre class="fragment hljs"
+              data-trim contenteditable><code><div role=”search”></div></code></pre>
+          </p>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h2>Automate the process</h2>
+          <p>Use browser extensions and command line accessibility test suites</p>
+        </section>
+        <section>
+          <h3>Key points</h3>
+          <p class="fragment fade-down">Does the page pass all the tests from either the <a href="https://chrome.google.com/webstore/detail/axe/lhdoppojpmngadmnindnejefpokejbdd">aXe</a> or <a href="https://chrome.google.com/webstore/detail/wave-evaluation-tool/jbbplnpkjmmeebjpijfedlgcdilocofh">WAVE</a> browser extensions</p>
+          <p class="fragment fade-down">Incorporate a library like <a href="https://github.com/dequelabs/axe-core">axe-core</a> into your automated test suite</p>
+          <p class="fragment fade-down"><a href="https://github.com/GoogleChrome/lighthouse">Lighthouse</a> uses the axe-core library to power a set of accessibility tests</p>
+        </section>
+      </section>
+      <section>
+        <h1>THE END</h1>
+        <h3>Questiosn?</h3>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+
+  <script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+      // More info https://github.com/hakimel/reveal.js#dependencies
+      dependencies: [{
+          src: 'lib/js/classList.js',
+          condition: function () {
+            return !document.body.classList;
+          }
+        },
+        {
+          src: 'plugin/markdown/marked.js',
+          condition: function () {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: 'plugin/markdown/markdown.js',
+          condition: function () {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: 'plugin/highlight/highlight.js',
+          async: true,
+          callback: function () {
+            hljs.initHighlightingOnLoad();
+          }
+        },
+        {
+          src: 'plugin/zoom-js/zoom.js',
+          async: true
+        },
+        {
+          src: 'plugin/notes/notes.js',
+          async: true
+        }
+      ]
+    });
+  </script>
+
+</body>
+
+</html>
